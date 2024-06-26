@@ -75,7 +75,7 @@ const boardsSlice = createSlice({
         board.boardId === payload.boardId
           ? {
               ...board,
-              list: board.lists.filter(list => list.listId !== payload.listId),
+              lists: board.lists.filter(list => list.listId !== payload.listId),
             }
           : board
       );
