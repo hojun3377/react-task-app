@@ -22,6 +22,7 @@ export const vars = createGlobalTheme(':root', {
     T3: '18px',
     T4: '14px',
     T5: '12px',
+    P1: '12px',
   },
   spacing: {
     small: '5px',
