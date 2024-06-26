@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import clsx from 'clsx';
 
@@ -24,6 +24,14 @@ const BoardList: FC<TBoardListProps> = ({
 }) => {
   const { boardArray } = useTypedSelector(state => state.boards);
   const [isFormOpen, setIsFromOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleClick = () => {
+    setIsFromOpen(!isFormOpen);
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
 
   return (
     <div className={container}>
@@ -49,12 +57,9 @@ const BoardList: FC<TBoardListProps> = ({
       ))}
       <div className={addSection}>
         {isFormOpen ? (
-          <SideForm />
+          <SideForm inputRef={inputRef} setIsFormOpen={setIsFromOpen} />
         ) : (
-          <FiPlusCircle
-            className={addButton}
-            onClick={() => setIsFromOpen(!isFormOpen)}
-          />
+          <FiPlusCircle className={addButton} onClick={handleClick} />
         )}
       </div>
     </div>
