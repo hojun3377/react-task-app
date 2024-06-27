@@ -56,7 +56,7 @@ const DropDownForm: FC<TDropDownFormProps> = ({
           })
         );
       } else {
-        logMessage = '일 생성하기: ';
+        logMessage = '일 생성하기: ' + logMessage;
 
         dispatch(
           addTask({
