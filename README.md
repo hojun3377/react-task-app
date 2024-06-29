@@ -18,7 +18,7 @@
 - [x] Logger Modal 컴포넌트 및 스타일 생성
 - [x] Log Item 컴포넌트 및 스타일 생성
 - [x] 게시판 삭제 기능 구현
-- [ ] 할 일 DND(Drag And Drop) 기능 구현
+- [x] 할 일 DND(Drag And Drop) 기능 구현
 - [ ] Firebase로 Login 기능 구현
 - [ ] Logout 기능 구현
 - [ ] 프로젝트 배포
