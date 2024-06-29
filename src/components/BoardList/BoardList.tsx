@@ -1,9 +1,12 @@
-import React, { FC, useRef, useState } from 'react';
-import { FiPlusCircle } from 'react-icons/fi';
 import clsx from 'clsx';
+import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import React, { FC, useRef, useState } from 'react';
+import { FiLogIn, FiPlusCircle } from 'react-icons/fi';
+import { GoSignOut } from 'react-icons/go';
 
-import { useTypedSelector } from '../../hooks/redux';
-import SideForm from './SideForm/SideForm';
+import { app } from '../../firebase';
+import { useTypedDispatch, useTypedSelector } from '../../hooks/redux';
+import { setUser } from '../../store/slices/userSlice';
 import {
   addButton,
   addSection,
@@ -12,6 +15,7 @@ import {
   container,
   title,
 } from './BoardList.css';
+import SideForm from './SideForm/SideForm';
 
 type TBoardListProps = {
   activeBoardId: string;
@@ -22,15 +26,34 @@ const BoardList: FC<TBoardListProps> = ({
   activeBoardId,
   setActiveBoardId,
 }) => {
+  const dispatch = useTypedDispatch();
   const { boardArray } = useTypedSelector(state => state.boards);
   const [isFormOpen, setIsFromOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
 
   const handleClick = () => {
     setIsFromOpen(!isFormOpen);
     setTimeout(() => {
       inputRef.current?.focus();
     }, 0);
+  };
+
+  const handleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then(userCredential => {
+        dispatch(
+          setUser({
+            email: userCredential.user.email,
+            id: userCredential.user.uid,
+          })
+        );
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   return (
@@ -61,6 +84,9 @@ const BoardList: FC<TBoardListProps> = ({
         ) : (
           <FiPlusCircle className={addButton} onClick={handleClick} />
         )}
+
+        <GoSignOut className={addButton} />
+        <FiLogIn className={addButton} onClick={handleLogin} />
       </div>
     </div>
   );
