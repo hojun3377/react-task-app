@@ -21,4 +21,4 @@
 - [x] 할 일 DND(Drag And Drop) 기능 구현
 - [x] Firebase로 Login 기능 구현
 - [x] Logout 기능 구현
-- [ ] 프로젝트 배포
+- [x] 프로젝트 배포([배포된 사이트](https://react-task-app-add2d.web.app/))
